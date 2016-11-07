@@ -22,6 +22,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
@@ -936,6 +937,16 @@ public class SpaceNavigationView extends RelativeLayout {
         } else {
             fab.setImageResource(icon);
             centreButtonIcon = icon;
+        }
+    }
+
+    public Drawable getCenterButtonIconDrawable() {
+        if (fab == null) {
+            Log.e(TAG, "You should call setCentreButtonIcon() instead, " +
+                    "getCenterButtonIconDrawable works if space navigation already set up");
+            return null;
+        } else {
+            return fab.getDrawable();
         }
     }
 
