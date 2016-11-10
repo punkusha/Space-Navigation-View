@@ -1,12 +1,17 @@
 package com.luseen.spacenavigationview;
 
+import android.graphics.drawable.Animatable;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.luseen.spacenavigation.SpaceItem;
@@ -22,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
 
     private SpaceNavigationView spaceNavigationView;
 
+    private CentreButtonMode centreButtonMode;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,16 +37,28 @@ public class MainActivity extends AppCompatActivity {
 
         spaceNavigationView = (SpaceNavigationView) findViewById(R.id.space);
         spaceNavigationView.initWithSaveInstanceState(savedInstanceState);
-        spaceNavigationView.addSpaceItem(new SpaceItem("HOME", R.drawable.account));
-        spaceNavigationView.addSpaceItem(new SpaceItem("SEARCH", R.drawable.magnify));
+        spaceNavigationView.addSpaceItem(new SpaceItem("SKIP", R.drawable.ic_fast_forward_24dp));
+        spaceNavigationView.addSpaceItem(new SpaceItem("ANSWER", R.drawable.ic_done_24dp));
+        spaceNavigationView.setCentreButtonIcon( R.drawable.play_to_pause_animation );
         spaceNavigationView.shouldShowFullBadgeText(true);
         spaceNavigationView.setCentreButtonIconColorFilterEnabled(false);
-
+        centreButtonMode = CentreButtonMode.PLAY_TO_PAUSE;
         spaceNavigationView.setSpaceOnClickListener(new SpaceOnClickListener() {
             @Override
             public void onCentreButtonClick() {
                 Log.d("onCentreButtonClick ", "onCentreButtonClick");
                 spaceNavigationView.shouldShowFullBadgeText(true);
+
+                spaceNavigationView.changeCenterButtonIcon(getCentreButtonModeIcon());
+                Drawable centerDrawable = spaceNavigationView.getCenterButtonIconDrawable();
+                if (centerDrawable instanceof Animatable) {
+                    ((Animatable) centerDrawable).start();
+                    toggleCentreButtonMode();
+//                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+//
+//                        .startAnimation(AnimationUtils.loadAnimation(, ));
+//                    }
+                }
             }
 
             @Override
@@ -65,6 +85,23 @@ public class MainActivity extends AppCompatActivity {
         });
 
         setUpRecyclerView();
+    }
+
+    private enum CentreButtonMode {
+        PLAY_TO_PAUSE, PAUSE_TO_PLAY
+    }
+
+    private void toggleCentreButtonMode() {
+        centreButtonMode = (centreButtonMode == CentreButtonMode.PLAY_TO_PAUSE) ? CentreButtonMode.PAUSE_TO_PLAY : CentreButtonMode.PLAY_TO_PAUSE;
+    }
+
+    @DrawableRes
+    private Integer getCentreButtonModeIcon() {
+        switch (centreButtonMode) {
+            case PLAY_TO_PAUSE: return R.drawable.play_to_pause_animation;
+            case PAUSE_TO_PLAY: return R.drawable.pause_to_play_animation;
+            default: return R.drawable.pause_to_play_animation;
+        }
     }
 
     @Override

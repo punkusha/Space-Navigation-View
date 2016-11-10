@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout
     android:id="@+id/activity_main"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.luseen.spacenavigationview.MainActivity">
@@ -9,12 +11,19 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/view_bottom_margin" />
+        android:layout_height="match_parent" />
 
     <com.luseen.spacenavigation.SpaceNavigationView
         android:id="@+id/space"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="bottom" />
-</FrameLayout>
+        app:space_background_color="@color/space_white"
+        app:active_item_color="@color/space_default_color"
+        app:centre_button_color="@color/space_default_color"
+        app:layout_behavior="com.luseen.spacenavigation.SpaceNavigationViewBehavior"
+        android:layout_gravity="bottom"/>
+
+</android.support.design.widget.CoordinatorLayout>
+
+
+<!--android:layout_marginBottom="@dimen/view_bottom_margin"-->

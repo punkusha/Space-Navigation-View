@@ -11,4 +11,7 @@
     <color name="badge_background_color">#f44336</color>
     <color name="white_with_alpha">#bfffffff</color>
     <color name="colorBackgroundHighlightWhite">#8dffffff</color>
+
+    <color name="pressed_clearer">#50dddddd</color>
+
 </resources>

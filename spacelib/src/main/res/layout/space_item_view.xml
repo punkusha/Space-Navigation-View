@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
-    android:clickable="true">
+    android:clickable="true"
+    android:paddingLeft="4dp"
+    android:paddingRight="4dp">
 
     <LinearLayout
         android:id="@+id/main_content"
