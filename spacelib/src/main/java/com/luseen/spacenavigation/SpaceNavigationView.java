@@ -941,12 +941,12 @@ public class SpaceNavigationView extends RelativeLayout {
     }
 
     public Drawable getCenterButtonIconDrawable() {
-        if (fab == null) {
+        if (centreButton == null) {
             Log.e(TAG, "You should call setCentreButtonIcon() instead, " +
                     "getCenterButtonIconDrawable works if space navigation already set up");
             return null;
         } else {
-            return fab.getDrawable();
+            return centreButton.getDrawable();
         }
     }
 
